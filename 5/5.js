@@ -4,8 +4,8 @@
  * @return {String} result 
  */
 function upperCaseSwitch(str) {
-    let strArr = str.split('');
-    let newArr = strArr.map(item => item.charCodeAt() >= 97 ? String.fromCharCode(item.charCodeAt() - 32) : String.fromCharCode(item.charCodeAt() + 32))
+    let strArr = [...str];
+    let newArr = strArr.map(item => item.charCodeAt() >= 97 ? item.toUpperCase() : item.toLowerCase())
 
     return newArr.join('');
 }
