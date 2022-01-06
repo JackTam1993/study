@@ -21,6 +21,44 @@
  * @param {string} s
  * @return {number}
  */
- var romanToInt = function(s) {
+const basic = ["I", "V", "X", "L", "C", "D", "M"]
+const complex = ["IV", "IX", "XL", "XC", "CD", "CM"]
 
+let dict = {
+    "I": 1,
+    "V": 5,
+    "X": 10,
+    "L": 50,
+    "C": 100,
+    "D": 500,
+    "M": 1000,
+    "IV": 4,
+    "IX": 9,
+    "XL": 40,
+    "XC": 90,
+    "CD": 400,
+    "CM": 900
+}
+
+
+var romanToInt = function(s) {
+    let numlist = [];
+
+    for(let i = 0; i < s.length; i++) {
+        if(basic.includes(s[i]) && complex.includes(s.slice(i, i+2))) {
+            // 
+            numlist.push(s.slice(i, i+2))
+            i++;
+        } else {
+            numlist.push(s[i])
+        }
+    }
+
+    let count = 0
+    for(let i of numlist) {
+        count += dict[i];
+    }
+
+    return count;
+    
 };
