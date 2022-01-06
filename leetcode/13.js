@@ -16,13 +16,8 @@
 // C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 // 给定一个罗马数字，将其转换成整数。
 
-
-/**
- * @param {string} s
- * @return {number}
- */
-const basic = ["I", "V", "X", "L", "C", "D", "M"]
-const complex = ["IV", "IX", "XL", "XC", "CD", "CM"]
+const basic = ["I", "V", "X", "L", "C", "D", "M"] // 基本类
+const complex = ["IV", "IX", "XL", "XC", "CD", "CM"] // 复杂类
 
 let dict = {
     "I": 1,
@@ -40,25 +35,25 @@ let dict = {
     "CM": 900
 }
 
-
+/**
+ * @param {string} s
+ * @return {number}
+ */
 var romanToInt = function(s) {
-    let numlist = [];
+    let count = 0
 
     for(let i = 0; i < s.length; i++) {
+        
+        // 在基本类和复杂类都有的话就算复杂类
         if(basic.includes(s[i]) && complex.includes(s.slice(i, i+2))) {
             // 
-            numlist.push(s.slice(i, i+2))
+            count += dict[s.slice(i, i+2)]
             i++;
         } else {
-            numlist.push(s[i])
+            count += dict[s[i]]
         }
     }
-
-    let count = 0
-    for(let i of numlist) {
-        count += dict[i];
-    }
-
     return count;
-    
 };
+
+console.log(romanToInt('MCMXCIV'))
