@@ -2,7 +2,7 @@
  * @param {string} s
  * @return {number}
  */
-var longestValidParentheses = function(s) {
+ var longestValidParentheses = function(s) {
 
     if(s.length == 0) return 0;
 
@@ -21,22 +21,44 @@ var longestValidParentheses = function(s) {
                 if(typeof count_arr[count_arr.length - 1] != 'number') {
                     count_arr.pop()
                     count_arr.push(2)
+                    // pushNumber(count_arr, 2)
                 } else {
                     let pop = count_arr.pop();
+                    count_arr.pop();
                     count_arr.push(pop + 2)
                 }
+                pushNumber(count_arr);
+
             } else {
-                console.log('push:' + s_arr[i])
                 stack.push(s_arr[i])
                 count_arr.push(s_arr[i])
             }
         }
     }
-    // TODO 要合并相邻两个数字
-    count_arr = count_arr.map(item => typeof item == "number" ? item : 0)
 
-    return Math.max.apply(null, count_arr)
+    let sum = 0;
+    let count = 0;
+    count_arr.forEach(item => {
+        if(typeof item != 'number') {
+            count = 0;
+        } else {
+            count += item;
+        }
+        sum = Math.max(sum, count);
+    })
+
+    return sum;
 };
+
+// 推数字进去，直到只有1个数字
+const pushNumber = function(stack) {
+
+    while(typeof stack[stack.length - 2] == 'number') {
+        let pop1 = stack.pop();
+        let pop2 = stack.pop();
+        stack.push(pop1 + pop2)
+    }
+}
 
 console.log(longestValidParentheses(')()())'));
 console.log(longestValidParentheses('(()'));
