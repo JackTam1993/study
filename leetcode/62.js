@@ -15,7 +15,7 @@ var uniquePaths = function(m, n) {
     if(m == 0 || n == 0) return 0
     if(m == 1 && n == 1) return 1;
 
-    let key = `${m}_${n}`;
+    let key = m > n ? `${m}_${n}` : `${n}_${m}`;
     if(map.has(key)) {
         return map.get(key)
     } else {
