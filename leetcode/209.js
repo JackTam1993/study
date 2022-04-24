@@ -11,13 +11,11 @@
  * @return {number}
  */
  var minSubArrayLen = function(target, nums) {
-    let left = 0;
-    let right = 0;
-    let length = nums.length;
+    let left = right = 0;
     let sum = nums[0];
-    let result = 10000000;
+    let result = 1000000;
 
-    while(right < length) {
+    while(right < nums.length) {
         if(sum < target) {
             right++;
             sum += nums[right]
@@ -25,8 +23,9 @@
             result = Math.min(result, right - left + 1);
             
             // 判断一下，减少left是否仍然大于target，是的话就减，不是的话就加
-            if(sum - nums[left] >= target) {
-                sum -= nums[left]
+            let decline = sum - nums[left]
+            if(decline >= target) {
+                sum = decline
                 left++
             } else {
                 right++
@@ -34,7 +33,7 @@
             }
         }
     }
-    return result == 10000000 ? 0 : result;
+    return result == 1000000 ? 0 : result;
 };
 // @lc code=end
 
