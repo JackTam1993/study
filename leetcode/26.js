@@ -10,16 +10,21 @@
  * @return {number}
  */
 var removeDuplicates = function(nums) {
-    let pointer = 0;
+    let slow = 0;
+    let fast = 1;
 
-    do {
-        if(nums[pointer] == nums[pointer + 1]) {
-            nums.splice(pointer, 1);
-            pointer--;
+    while(fast < nums.length){
+        if(nums[slow] == nums[fast]) {
+            fast++
         } else {
-            pointer++;
+            let temp = nums[fast];
+            nums[fast] = nums[slow + 1];
+            nums[slow + 1] = temp;
+
+            slow++;
+            fast++;
         }
-    } while(pointer < nums.length - 1)
-    return nums.length;
+    } 
+    return slow + 1;
 };
 // @lc code=end
